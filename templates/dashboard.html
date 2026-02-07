@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h2>Welcome, {{ name }} 👋</h2>
+
+    <p>Your interests: {{ interests }}</p>
+
+    <a href="/recommend/{{ user_id }}">
+        <button>View Recommended Events</button>
+    </a>
+    <div class="container">
+    <!-- your content -->
+</div>
+
+</body>
+</html>
