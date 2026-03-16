@@ -11,6 +11,18 @@
 </div>
 
     <h1>Welcome to the Event Recommendation App 🎉</h1>
+    <h2>Available Events</h2>
+
+<ul>
+  {% for event in events %}
+    <li>
+      <strong>{{ event.name }}</strong> <br>
+      Category: {{ event.category }} <br>
+      {{ event.description }}
+    </li>
+    <br>
+  {% endfor %}
+</ul>
     <p>This app recommends college events based on your interests.</p>
 </body>
 </html>
