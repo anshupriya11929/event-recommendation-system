@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import sqlite3
+from events import events
 
 app = Flask(__name__)
 
@@ -8,7 +9,7 @@ def connect_db():
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html",events=events)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
