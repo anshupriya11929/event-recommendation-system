@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import sqlite3
 from events import events
+from recommendation import recommend_events
 
 app = Flask(__name__)
 
@@ -12,13 +13,8 @@ def home():
     return render_template("home.html",events=events)
 @app.route("/recommend/<interest>")
 def recommend(interest):
-    recommended_events = []
-
-    for event in events:
-        if interest.lower() in event["category"].lower():
-            recommended_events.append(event)
-
-    return render_template("recommend.html", events=recommended_events, interest=interest)
+    events = recommend_events(interest)
+    return render_template("recommend.html", events=events, interest=interest)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
