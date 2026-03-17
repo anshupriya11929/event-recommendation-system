@@ -10,6 +10,15 @@ def connect_db():
 @app.route("/")
 def home():
     return render_template("home.html",events=events)
+@app.route("/recommend/<interest>")
+def recommend(interest):
+    recommended_events = []
+
+    for event in events:
+        if interest.lower() in event["category"].lower():
+            recommended_events.append(event)
+
+    return render_template("recommend.html", events=recommended_events, interest=interest)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
