@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommended Events</title>
+</head>
+<body>
+
+<h2>Recommended Events for {{ interest }}</h2>
+
+<ul>
+{% for event in events %}
+    <li>
+        <strong>{{ event.name }}</strong><br>
+        Category: {{ event.category }}<br>
+        {{ event.description }}
+    </li>
+    <br>
+{% endfor %}
+</ul>
+
+<a href="/">Back to Home</a>
+
+</body>
+</html>
