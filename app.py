@@ -11,10 +11,14 @@ def connect_db():
 @app.route("/")
 def home():
     return render_template("home.html",events=events)
-@app.route("/recommend/<interest>")
-def recommend(interest):
-    events = recommend_events(interest)
-    return render_template("recommend.html", events=events, interest=interest)
+@app.route("/recommend", methods=["GET", "POST"])
+def recommend():
+    if request.method == "POST":
+        interest = request.form["interest"]
+        events = recommend_events(interest)
+        return render_template("recommend.html", events=events, interest=interest)
+    
+    return "Invalid request"
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
