@@ -18,6 +18,12 @@
 <a href="/recommend/Cultural">Cultural Events</a><br>
 <a href="/recommend/Sports">Sports Events</a><br>
 <a href="/recommend/Entrepreneurship">Entrepreneurship Events</a>
+    <h3>Enter Your Interest</h3>
+
+<form action="/recommend" method="POST">
+    <input type="text" name="interest" placeholder="e.g. AI, Sports, Music" required>
+    <button type="submit">Get Recommendations</button>
+</form>
 
 <ul>
   {% for event in events %}
