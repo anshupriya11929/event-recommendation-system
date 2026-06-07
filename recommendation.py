@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+from nlp_utils import preprocess_text
 # Load dataset
 df = pd.read_csv("events.csv")
 
@@ -12,9 +12,13 @@ df["combined"] = (
     df["description"] + " " +
     df["tags"]
 )
+df["combined"] = df["combined"].apply(preprocess_text)
 
 # Convert text to vectors
-vectorizer = TfidfVectorizer()
+vectorizer = TfidfVectorizer(
+    ngram_range=(1, 2),
+    max_features=5000
+)
 tfidf_matrix = vectorizer.fit_transform(df["combined"])
 
 # Compute similarity

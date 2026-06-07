@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Event Recommendation App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Event Recommendation System</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-    <!-- your content -->
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="text-center mb-5">
+        <h1> Event Recommendation System</h1>
+        <p class="text-muted">
+            Discover events tailored to your interests
+        </p>
+    </div>
+
+    <div class="card shadow p-4">
+
+        <h3 class="mb-3">
+            Enter Your Interests
+        </h3>
+
+        <form action="/recommend" method="POST">
+
+            <input
+                type="text"
+                class="form-control mb-3"
+                name="interest"
+                placeholder="AI, Machine Learning, Sports, Startup..."
+                required
+            >
+
+            <button class="btn btn-primary w-100">
+                Get Recommendations
+            </button>
+
+        </form>
+
+    </div>
+
 </div>
 
-    <h1>Welcome to the Event Recommendation App 🎉</h1>
-    <h2>Available Events</h2>
-    <h3>Find Events by Interest</h3>
-
-<a href="/recommend/Technology">Technology Events</a><br>
-<a href="/recommend/Cultural">Cultural Events</a><br>
-<a href="/recommend/Sports">Sports Events</a><br>
-<a href="/recommend/Entrepreneurship">Entrepreneurship Events</a>
-    <h3>Enter Your Interest</h3>
-
-<form action="/recommend" method="POST">
-    <input type="text" name="interest" placeholder="e.g. AI, Sports, Music" required>
-    <button type="submit">Get Recommendations</button>
-</form>
-
-<ul>
-  {% for event in events %}
-    <li>
-      <strong>{{ event.name }}</strong> <br>
-      Category: {{ event.category }} <br>
-      {{ event.description }}
-    </li>
-    <br>
-  {% endfor %}
-</ul>
-    <p>This app recommends college events based on your interests.</p>
 </body>
 </html>
