@@ -1,9 +1,55 @@
-event_name,category,tags
-AI Workshop,Technology,"AI,ML,Python"
-Music Fest,Cultural,"Music,Dance,Performance"
-Hackathon,Technology,"Coding,Programming,Competition"
-Football Tournament,Sports,"Football,Team,Outdoor"
-Startup Pitch,Entrepreneurship,"Business,Startup,Innovation"
-Data Science Bootcamp,Technology,"Data,ML,Python"
-Drama Night,Cultural,"Acting,Stage,Performance"
-Basketball Match,Sports,"Basketball,Team,Indoor"
+event_id,event_name,category,description,tags,location,date,organizer
+1,AI Workshop,Technology,Introduction to Artificial Intelligence,"AI,ML,Python",Auditorium,2026-06-15,CSE Club
+2,Machine Learning Bootcamp,Technology,Hands-on machine learning training,"ML,Python,Data Science",Lab 3,2026-06-20,Data Science Society
+3,Deep Learning Seminar,Technology,Neural networks and deep learning concepts,"Deep Learning,AI,Neural Networks",Seminar Hall,2026-06-22,AI Club
+4,NLP Workshop,Technology,Natural Language Processing fundamentals,"NLP,Text Mining,Python",Lab 1,2026-06-25,AI Club
+5,Computer Vision Session,Technology,Introduction to image processing and vision,"Computer Vision,OpenCV,AI",Lab 2,2026-06-27,CSE Club
+6,Cybersecurity Awareness,Technology,Learn about modern cyber threats,"Security,Hacking,Networks",Auditorium,2026-07-01,Cyber Club
+7,Cloud Computing Workshop,Technology,Explore AWS and cloud services,"Cloud,AWS,DevOps",Lab 4,2026-07-03,Tech Society
+8,Web Development Bootcamp,Technology,Build modern web applications,"HTML,CSS,JavaScript",Innovation Hub,2026-07-05,Developer Club
+9,GenAI Hackathon,Technology,Build applications using Generative AI,"AI,LLM,Hackathon",Innovation Center,2026-07-08,AI Society
+10,Python Programming Contest,Technology,Competitive coding with Python,"Python,Coding,Competition",Lab 5,2026-07-10,Coding Club
+
+11,Music Fest,Cultural,Inter-college music competition,"Music,Singing,Band",Main Stage,2026-06-15,Cultural Club
+12,Drama Night,Cultural,Stage performances and acting showcase,"Drama,Acting,Performance",Auditorium,2026-06-18,Drama Club
+13,Dance Competition,Cultural,Group and solo dance performances,"Dance,Cultural,Performance",Main Stage,2026-06-20,Dance Society
+14,Poetry Slam,Cultural,Creative poetry recitation event,"Poetry,Literature,Writing",Seminar Hall,2026-06-22,Literary Club
+15,Art Exhibition,Cultural,Display of student artwork,"Art,Painting,Creativity",Art Gallery,2026-06-25,Fine Arts Club
+16,Photography Contest,Cultural,Campus photography competition,"Photography,Creativity,Camera",Campus Grounds,2026-06-28,Photography Club
+17,Short Film Festival,Cultural,Screening of student films,"Film,Storytelling,Media",Auditorium,2026-07-01,Media Club
+18,Fashion Show,Cultural,Student fashion and design showcase,"Fashion,Design,Creativity",Main Stage,2026-07-03,Fashion Society
+19,Book Discussion,Cultural,Discussion on bestselling novels,"Books,Literature,Reading",Library,2026-07-06,Literary Club
+20,Cultural Carnival,Cultural,Multi-cultural performances and food stalls,"Culture,Music,Dance",College Ground,2026-07-10,Cultural Committee
+
+21,Football Tournament,Sports,Inter-department football competition,"Football,Team,Outdoor",Sports Ground,2026-06-15,Sports Club
+22,Basketball Championship,Sports,Competitive basketball tournament,"Basketball,Team,Sports",Indoor Stadium,2026-06-18,Sports Club
+23,Cricket League,Sports,College cricket league matches,"Cricket,Team,Outdoor",Cricket Ground,2026-06-22,Sports Committee
+24,Volleyball Competition,Sports,Inter-college volleyball event,"Volleyball,Team,Sports",Sports Arena,2026-06-25,Sports Society
+25,Table Tennis Open,Sports,Open table tennis championship,"Table Tennis,Indoor,Sports",Indoor Hall,2026-06-27,Sports Club
+26,Chess Tournament,Sports,Competitive chess championship,"Chess,Strategy,Competition",Library Hall,2026-07-01,Chess Club
+27,Badminton Cup,Sports,Badminton singles and doubles event,"Badminton,Indoor,Sports",Sports Complex,2026-07-03,Sports Club
+28,Athletics Meet,Sports,Track and field events,"Running,Athletics,Fitness",Athletic Track,2026-07-06,Sports Department
+29,Yoga Workshop,Sports,Wellness and yoga training session,"Yoga,Fitness,Health",Seminar Hall,2026-07-08,Wellness Club
+30,Cycling Rally,Sports,Campus-wide cycling awareness event,"Cycling,Fitness,Outdoor",College Gate,2026-07-10,Fitness Society
+
+31,Startup Pitch Competition,Entrepreneurship,Present startup ideas to judges,"Startup,Business,Innovation",Innovation Center,2026-06-15,Entrepreneurship Cell
+32,Business Plan Workshop,Entrepreneurship,Learn business model creation,"Business,Strategy,Startup",Seminar Hall,2026-06-18,E-Cell
+33,Founder Talk,Entrepreneurship,Interaction with successful entrepreneurs,"Startup,Leadership,Business",Auditorium,2026-06-20,E-Cell
+34,Innovation Challenge,Entrepreneurship,Solve real-world business problems,"Innovation,Problem Solving",Innovation Hub,2026-06-25,Innovation Club
+35,Marketing Masterclass,Entrepreneurship,Digital marketing strategies and tools,"Marketing,Business,Branding",Lab 2,2026-06-28,Management Club
+36,Finance Basics Workshop,Entrepreneurship,Introduction to startup finance,"Finance,Investment,Business",Seminar Hall,2026-07-01,Finance Society
+37,Product Management Session,Entrepreneurship,Building and managing products,"Product,Management,Startup",Innovation Center,2026-07-03,PM Club
+38,Networking Summit,Entrepreneurship,Connect with industry professionals,"Networking,Career,Business",Conference Hall,2026-07-05,Career Cell
+39,Investor Meet,Entrepreneurship,Meet startup investors and mentors,"Investment,Startup,Funding",Auditorium,2026-07-08,E-Cell
+40,Entrepreneurship Bootcamp,Entrepreneurship,Intensive startup building program,"Startup,Innovation,Business",Innovation Hub,2026-07-10,E-Cell
+
+41,Research Methodology Workshop,Research,Learn academic research techniques,"Research,Academics,Study",Seminar Hall,2026-06-15,Research Cell
+42,Paper Writing Seminar,Research,How to write research papers,"Research,Writing,Publication",Library Hall,2026-06-18,Research Society
+43,Data Science Symposium,Research,Research presentations in data science,"Data Science,Research,Analytics",Auditorium,2026-06-22,DS Society
+44,AI Research Colloquium,Research,Latest trends in AI research,"AI,Research,Innovation",Seminar Hall,2026-06-25,AI Research Group
+45,Bioinformatics Seminar,Research,Applications of computing in biology,"Biology,Research,Data",Conference Hall,2026-06-28,Bio Club
+46,Robotics Research Expo,Research,Research projects in robotics,"Robotics,Research,Engineering",Innovation Center,2026-07-01,Robotics Club
+47,Academic Conference,Research,Student research presentations,"Research,Presentation,Academics",Auditorium,2026-07-03,Research Cell
+48,Innovation Research Summit,Research,Research and innovation showcase,"Innovation,Research,Technology",Conference Hall,2026-07-06,Innovation Club
+49,Publication Guidance Session,Research,Publishing in journals and conferences,"Research,Publication,Writing",Library Hall,2026-07-08,Research Society
+50,Research Showcase,Research,Exhibition of student research work,"Research,Projects,Academics",Exhibition Hall,2026-07-10,Research Cell

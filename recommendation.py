@@ -6,7 +6,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 df = pd.read_csv("events.csv")
 
 # Combine features
-df["combined"] = df["category"] + " " + df["tags"]
+df["combined"] = (
+    df["event_name"] + " " +
+    df["category"] + " " +
+    df["description"] + " " +
+    df["tags"]
+)
 
 # Convert text to vectors
 vectorizer = TfidfVectorizer()
