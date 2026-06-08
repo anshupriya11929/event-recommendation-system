@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <div class="text-center">
+
+            <h1>
+                👤 {{ name }}
+            </h1>
+
+            <p class="text-muted">
+                {{ email }}
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h4>
+            Interests
+        </h4>
+
+        <p>
+            {{ interests }}
+        </p>
+
+        <a href="/edit-interests"
+           class="btn btn-primary">
+            Edit Interests
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -13,17 +13,30 @@
     <h2>Student Registration</h2>
 
     <form method="POST">
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
+    <input type="text"
+           name="name"
+           class="form-control mb-3"
+           placeholder="Full Name"
+           required>
 
-        <label>Interests (comma separated):</label><br>
-        <input type="text" name="interests" placeholder="AI, Music, Sports" required><br><br>
+    <input type="email"
+           name="email"
+           class="form-control mb-3"
+           placeholder="Email"
+           required>
 
-        <button type="submit">Register</button>
-    </form>
+    <input type="password"
+           name="password"
+           class="form-control mb-3"
+           placeholder="Password"
+           required>
+
+    <button class="btn btn-success w-100">
+        Continue
+    </button>
+
+</form>
 
 </body>
 </html>
