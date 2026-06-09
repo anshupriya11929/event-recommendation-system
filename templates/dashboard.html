@@ -187,10 +187,11 @@
                         <div
                             class="progress-bar"
                             role="progressbar"
-                            style="width: {{ event.score }}%;">
-
-                            {{ event.score }}%
-
+                            style="width: {{ event.score }}%;"
+                            aria-valuenow="{{ event.score }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                                {{ event.score }}%
                         </div>
 
                     </div>
