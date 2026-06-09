@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
 
-    <title>Dashboard</title>
+    <title>Dashboard - Eventify</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
 <body class="bg-light">
-    {% include 'navbar.html' %}
 
-<div class="container mt-5">
+{% include 'navbar.html' %}
 
-    <h1>
-        Welcome, {{ name }}
-    </h1>
+<div class="container py-5">
 
-    <p class="text-muted">
-        Interests: {{ interests }}
-    </p>
+    <!-- Welcome Section -->
 
-    <hr>
+    <div class="card border-0 shadow-sm mb-5">
 
-    <h3>
-        Recommended Events
-    </h3>
+        <div class="card-body p-4">
 
-    <div class="row">
+            <h2 class="fw-bold">
+                Welcome back, {{ name }} 👋
+            </h2>
 
-        {% for event in events %}
+            <p class="text-muted mb-0">
+                Your interests:
+                {{ interests }}
+            </p>
 
-        <div class="col-md-6 mb-4">
+        </div>
 
-            <div class="card shadow-sm">
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="row mb-5">
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow-sm text-center">
 
                 <div class="card-body">
 
-                    <h5>
-                        {{ event.event_name }}
-                    </h5>
+                    <h2 class="fw-bold text-primary">
+                        {{ events|length }}
+                    </h2>
 
-                    <span class="badge bg-primary">
-                        {{ event.category }}
-                    </span>
-
-                    <p class="mt-2">
-                        {{ event.description }}
+                    <p class="text-muted mb-0">
+                        Recommended Events
                     </p>
 
                 </div>
@@ -56,11 +61,226 @@
 
         </div>
 
-        {% endfor %}
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow-sm text-center">
+
+                <div class="card-body">
+
+                    <h2 class="fw-bold text-success">
+                        TF-IDF
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Recommendation Engine
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow-sm text-center">
+
+                <div class="card-body">
+
+                    <h2 class="fw-bold text-warning">
+                        Cosine Similarity
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Matching System
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
+    <!-- Recommended Events -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3 class="fw-bold">
+            Recommended Events
+        </h3>
+
+    </div>
+
+    <div class="row">
+
+    {% for event in events %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            {% if event.category == "Technology" %}
+
+            <img
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;">
+
+            {% elif event.category == "Cultural" %}
+
+            <img
+                src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;">
+
+            {% elif event.category == "Sports" %}
+
+            <img
+                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;">
+
+            {% elif event.category == "Entrepreneurship" %}
+
+            <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;">
+
+            {% elif event.category == "Research" %}
+
+            <img
+                src="https://images.unsplash.com/photo-1532094349884-543bc11b234d"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;">
+
+            {% endif %}
+
+            <div class="card-body d-flex flex-column">
+
+                <div class="d-flex justify-content-between align-items-start">
+
+                    <h5 class="fw-bold">
+                        {{ event.event_name }}
+                    </h5>
+
+                    <span class="badge bg-primary">
+                        {{ event.category }}
+                    </span>
+
+                </div>
+
+                <!-- Match Score -->
+
+                {% if event.score %}
+
+                <div class="mt-3">
+
+                    <small class="fw-bold text-success">
+                        Match Score
+                    </small>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            role="progressbar"
+                            style="width: {{ event.score }}%;">
+
+                            {{ event.score }}%
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+                <!-- Why Recommended -->
+
+                {% if event.matched_keywords %}
+
+                <div class="mt-2">
+
+                    <small class="text-success">
+
+                        ✓ Matched:
+                        {{ event.matched_keywords }}
+
+                    </small>
+
+                </div>
+
+                {% endif %}
+
+                <hr>
+
+                {% if event.location %}
+                <p class="mb-1">
+                    📍 <strong>Location:</strong>
+                    {{ event.location }}
+                </p>
+                {% endif %}
+
+                {% if event.date %}
+                <p class="mb-1">
+                    📅 <strong>Date:</strong>
+                    {{ event.date }}
+                </p>
+                {% endif %}
+
+                {% if event.organizer %}
+                <p class="mb-3">
+                    👥 <strong>Organizer:</strong>
+                    {{ event.organizer }}
+                </p>
+                {% endif %}
+
+                <p class="text-muted">
+                    {{ event.description }}
+                </p>
+
+                <div class="mt-auto">
+
+                    <div class="d-grid gap-2">
+
+                        <a
+                            href="/register-event/{{ event.event_id }}"
+                            class="btn btn-success">
+
+                            Register Event
+
+                        </a>
+
+                        <a
+                            href="/save-event/{{ event.event_id }}"
+                            class="btn btn-outline-danger">
+
+                            ❤️ Save Event
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
 </div>
 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>

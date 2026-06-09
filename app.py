@@ -8,6 +8,7 @@ from flask import (
 )
 
 import sqlite3
+import pandas as pd
 
 from recommendation import recommend_events
 
@@ -32,6 +33,10 @@ def connect_db():
 # -----------------------------
 @app.route("/")
 def home():
+
+    if "user_id" in session:
+        return redirect(url_for("dashboard"))
+
     return render_template("landing.html")
 
 
@@ -64,12 +69,26 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
 
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        # Check duplicate email
+        cursor.execute(
+            "SELECT id FROM users WHERE email=?",
+            (email,)
+        )
+
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+
+            conn.close()
+
+            return "Email already exists"
+
         hashed_password = generate_password_hash(
             password
         )
-
-        conn = connect_db()
-        cursor = conn.cursor()
 
         cursor.execute(
             """
@@ -100,6 +119,8 @@ def register():
     return render_template(
         "register.html"
     )
+
+
 # -----------------------------
 # Choose Interests
 # -----------------------------
@@ -108,6 +129,27 @@ def choose_interests():
 
     if "user_id" not in session:
         return redirect(url_for("login"))
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT interests
+        FROM users
+        WHERE id=?
+        """,
+        (session["user_id"],)
+    )
+
+    result = cursor.fetchone()
+
+    conn.close()
+
+    if result and result[0]:
+        return redirect(
+            url_for("dashboard")
+        )
 
     if request.method == "POST":
 
@@ -144,6 +186,8 @@ def choose_interests():
     return render_template(
         "interests.html"
     )
+
+
 # -----------------------------
 # Login
 # -----------------------------
@@ -169,8 +213,6 @@ def login():
 
         user = cursor.fetchone()
 
-        conn.close()
-
         if user:
 
             user_id, stored_password = user
@@ -182,9 +224,30 @@ def login():
 
                 session["user_id"] = user_id
 
+                cursor.execute(
+                    """
+                    SELECT interests
+                    FROM users
+                    WHERE id=?
+                    """,
+                    (user_id,)
+                )
+
+                interests = cursor.fetchone()[0]
+
+                conn.close()
+
+                if not interests:
+
+                    return redirect(
+                        url_for("choose_interests")
+                    )
+
                 return redirect(
                     url_for("dashboard")
                 )
+
+        conn.close()
 
         return "Invalid Email or Password"
 
@@ -241,7 +304,28 @@ def dashboard():
 
 
 # -----------------------------
-# User Profile Route
+# Explore Events
+# -----------------------------
+@app.route("/explore")
+def explore():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    events = pd.read_csv(
+        "events.csv"
+    )
+
+    return render_template(
+        "explore.html",
+        events=events.to_dict(
+            orient="records"
+        )
+    )
+
+
+# -----------------------------
+# User Dashboard
 # -----------------------------
 @app.route("/user/<int:user_id>")
 def user_dashboard(user_id):
@@ -277,11 +361,18 @@ def user_dashboard(user_id):
         interests=interests,
         events=recommendations
     )
+
+
+# -----------------------------
+# Profile
+# -----------------------------
 @app.route("/profile")
 def profile():
 
     if "user_id" not in session:
-        return redirect(url_for("login"))
+        return redirect(
+            url_for("login")
+        )
 
     conn = connect_db()
     cursor = conn.cursor()
@@ -310,14 +401,18 @@ def profile():
         email=email,
         interests=interests
     )
-# --------------------------
+
+
+# -----------------------------
 # Edit Interests
-# --------------------------
+# -----------------------------
 @app.route("/edit-interests", methods=["GET", "POST"])
 def edit_interests():
 
     if "user_id" not in session:
-        return redirect(url_for("login"))
+        return redirect(
+            url_for("login")
+        )
 
     if request.method == "POST":
 
@@ -348,6 +443,125 @@ def edit_interests():
     return render_template(
         "edit_interests.html"
     )
+
+# -----------------------------
+# Register Event
+# -----------------------------
+@app.route("/register-event/<int:event_id>")
+def register_event(event_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO registrations
+        (user_id, event_id)
+        VALUES (?, ?)
+        """,
+        (
+            session["user_id"],
+            event_id
+        )
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(
+        url_for("dashboard")
+    )
+
+# -----------------------------
+# My Events
+# -----------------------------
+@app.route("/my-events")
+def my_events():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT event_id
+        FROM registrations
+        WHERE user_id=?
+        """,
+        (session["user_id"],)
+    )
+
+    registrations = cursor.fetchall()
+
+    conn.close()
+
+    registered_ids = [
+        row[0]
+        for row in registrations
+    ]
+
+    import pandas as pd
+
+    events = pd.read_csv("events.csv")
+
+    events = events[
+        events["event_id"].isin(
+            registered_ids
+        )
+    ]
+
+    return render_template(
+        "my_events.html",
+        events=events.to_dict(
+            orient="records"
+        )
+    )
+
+# -----------------------------
+# Save an a Event
+# -----------------------------
+@app.route("/save-event/<int:event_id>")
+def save_event(event_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM saved_events
+        WHERE user_id=? AND event_id=?
+        """,
+        (session["user_id"], event_id)
+    )
+
+    existing = cursor.fetchone()
+
+    if not existing:
+
+        cursor.execute(
+            """
+            INSERT INTO saved_events
+            (user_id, event_id)
+            VALUES (?, ?)
+            """,
+            (session["user_id"], event_id)
+        )
+
+        conn.commit()
+
+    conn.close()
+
+    return redirect(url_for("dashboard"))
+
 # -----------------------------
 # Logout
 # -----------------------------
@@ -358,6 +572,46 @@ def logout():
 
     return redirect(
         url_for("login")
+    )
+
+# -----------------------------
+# Saved Events
+# -----------------------------
+@app.route("/saved-events")
+def saved_events():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT event_id
+        FROM saved_events
+        WHERE user_id=?
+        """,
+        (session["user_id"],)
+    )
+
+    saved = cursor.fetchall()
+
+    conn.close()
+
+    saved_ids = [row[0] for row in saved]
+
+    import pandas as pd
+
+    events = pd.read_csv("events.csv")
+
+    events = events[
+        events["event_id"].isin(saved_ids)
+    ]
+
+    return render_template(
+        "saved_events.html",
+        events=events.to_dict(orient="records")
     )
 
 
